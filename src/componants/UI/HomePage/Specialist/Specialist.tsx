@@ -1,4 +1,4 @@
-import { Box, Container, Stack, Typography } from "@mui/material";
+import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 
 const Specialist = async () => {
@@ -37,6 +37,7 @@ const Specialist = async () => {
                 width: "150px",
                 backgroundColor: "rgba(245,245,245,1)",
                 border: "1px solid rgba(250, 250, 250, 1)",
+
                 borderRadius: "10px",
                 textAlign: "center",
                 padding: "40px",
@@ -44,6 +45,9 @@ const Specialist = async () => {
                   width: "50px",
                   height: "50px",
                   margin: "0 auto",
+                },
+                "&:hover": {
+                  border: "1px solid blue",
                 },
               }}
             >
@@ -62,6 +66,14 @@ const Specialist = async () => {
             </Box>
           ))}
         </Stack>
+        <Button
+          variant="outlined"
+          sx={{
+            marginTop: "20px",
+          }}
+        >
+          View All
+        </Button>
       </Box>
     </Container>
   );
