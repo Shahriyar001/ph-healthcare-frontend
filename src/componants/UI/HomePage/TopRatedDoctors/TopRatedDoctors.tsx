@@ -9,9 +9,11 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
+import Image from "next/image";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 const TopRatedDoctors = async () => {
-  const res = await fetch("http://localhost:5000/api/v1/doctor?page=1&limit=3");
+  const res = await fetch("http://localhost:5000/api/v1/doctor?page=2&limit=3");
   const { data: doctors } = await res.json();
   return (
     <Box
@@ -37,35 +39,58 @@ const TopRatedDoctors = async () => {
           and top-quality surgery facilities right here.
         </Typography>
       </Box>
-      <Container>
+      <Container sx={{ margin: "30px auto" }}>
         <Grid container spacing={2}>
           {doctors.map((doctor: any) => (
             <Grid item key={doctor.id} md={4}>
-              <Card sx={{ maxWidth: 345 }}>
-                <CardMedia
-                  component="img"
-                  alt="green iguana"
-                  height="140"
-                  image="/static/images/cards/contemplative-reptile.jpg"
-                />
+              <Card>
+                <Box>
+                  <Image
+                    src={doctor.profilePhoto}
+                    alt="doctors image"
+                    width={500}
+                    height={500}
+                  />
+                </Box>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    Lizard
+                    {doctor.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with
-                    over 6,000 species, ranging across all continents except
-                    Antarctica
+                    {doctor.qualification} , {doctor.designation}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    <LocationOnIcon /> {doctor.address}
                   </Typography>
                 </CardContent>
-                <CardActions>
-                  <Button size="small">Share</Button>
-                  <Button size="small">Learn More</Button>
+                <CardActions
+                  sx={{
+                    justifyContent: "space-between",
+                    px: 2,
+                    paddingBottom: "20px",
+                  }}
+                >
+                  <Button>Book Now</Button>
+                  <Button variant="outlined">View Profile</Button>
                 </CardActions>
               </Card>
             </Grid>
           ))}
         </Grid>
+        <Box
+          sx={{
+            textAlign: "center",
+          }}
+        >
+          <Button
+            variant="outlined"
+            sx={{
+              marginTop: "20px",
+            }}
+          >
+            View All
+          </Button>
+        </Box>
       </Container>
     </Box>
   );
