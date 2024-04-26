@@ -14,13 +14,17 @@ import assets from "@/assets";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 
-type Inputs = {
+interface IpatientData {
   name: string;
-  password: string;
   email: string;
   address: string;
   contactNumber: string;
-};
+}
+
+interface IpatientRegisterFormData {
+  password: string;
+  patient: IpatientData;
+}
 
 const RegisterPage = () => {
   const {
@@ -28,8 +32,9 @@ const RegisterPage = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  } = useForm<IpatientRegisterFormData>();
+  const onSubmit: SubmitHandler<IpatientRegisterFormData> = (data) =>
+    console.log(data);
 
   return (
     <Container
@@ -78,7 +83,7 @@ const RegisterPage = () => {
                     variant="outlined"
                     size="small"
                     fullWidth={true}
-                    {...register("name")}
+                    {...register("patient.name")}
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -88,7 +93,7 @@ const RegisterPage = () => {
                     variant="outlined"
                     size="small"
                     fullWidth={true}
-                    {...register("email")}
+                    {...register("patient.email")}
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -108,7 +113,7 @@ const RegisterPage = () => {
                     variant="outlined"
                     size="small"
                     fullWidth={true}
-                    {...register("contactNumber")}
+                    {...register("patient.contactNumber")}
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -118,7 +123,7 @@ const RegisterPage = () => {
                     variant="outlined"
                     size="small"
                     fullWidth={true}
-                    {...register("address")}
+                    {...register("patient.address")}
                   />
                 </Grid>
               </Grid>
