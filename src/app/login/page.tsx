@@ -12,28 +12,18 @@ import {
 import Image from "next/image";
 import assets from "@/assets";
 import Link from "next/link";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { userLogin } from "@/services/actions/userLogin";
 import { storeUserInfo } from "@/services/authservices";
 import { toast } from "sonner";
 import { Router } from "next/router";
 import { useRouter } from "next/navigation";
-
-export type FormValues = {
-  email: string;
-  password: string;
-};
+import PHForm from "@/componants/Forms/PHForm";
 
 const LoginPage = () => {
   const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<FormValues>();
 
-  const onSubmit: SubmitHandler<FormValues> = async (values) => {
+  const handleLogin = async (values: FieldValues) => {
     // console.log(values);
     try {
       const res = await userLogin(values);
@@ -82,7 +72,7 @@ const LoginPage = () => {
             </Box>
           </Stack>
           <Box>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <PHForm onSubmit={handleLogin}>
               <Grid container spacing={2} my={1}>
                 <Grid item md={6}>
                   <TextField
@@ -121,7 +111,7 @@ const LoginPage = () => {
                 Don&apos;t have an account{" "}
                 <Link href="/register">Create an account</Link>
               </Typography>
-            </form>
+            </PHForm>
           </Box>
         </Box>
       </Stack>

@@ -47,9 +47,7 @@ const RegisterPage = () => {
       const res = await registerPatient(data);
       // console.log(res);
       if (res?.data?.id) {
-        // console.log("clicked");
         toast.success(res?.message);
-        // router.push("/login");
         const result = await userLogin({
           password: values.password,
           email: values.patient.email,
