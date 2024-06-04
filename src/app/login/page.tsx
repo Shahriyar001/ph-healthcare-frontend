@@ -19,6 +19,7 @@ import { toast } from "sonner";
 import { Router } from "next/router";
 import { useRouter } from "next/navigation";
 import PHForm from "@/componants/Forms/PHForm";
+import PHInput from "@/componants/Forms/PHInput";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -75,23 +76,19 @@ const LoginPage = () => {
             <PHForm onSubmit={handleLogin}>
               <Grid container spacing={2} my={1}>
                 <Grid item md={6}>
-                  <TextField
+                  <PHInput
+                    name="email"
                     label="Email"
                     type="email"
-                    variant="outlined"
-                    size="small"
                     fullWidth={true}
-                    {...register("email")}
                   />
                 </Grid>
                 <Grid item md={6}>
-                  <TextField
+                  <PHInput
+                    name="password"
                     label="Password"
                     type="password"
-                    variant="outlined"
-                    size="small"
                     fullWidth={true}
-                    {...register("password")}
                   />
                 </Grid>
               </Grid>
