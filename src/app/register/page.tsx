@@ -21,6 +21,32 @@ import { userLogin } from "@/services/actions/userLogin";
 import { storeUserInfo } from "@/services/authservices";
 import PHForm from "@/componants/Forms/PHForm";
 import PHInput from "@/componants/Forms/PHInput";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+export const patientValidationSchema = z.object({
+  name: z.string().min(1, "Please enter your name"),
+  email: z.string().email("Please enter a valid email address"),
+  contactNumber: z
+    .string()
+    .regex(/^\d{11}$/, "Please provide a valid phone number"),
+  address: z.string().min(1, "Please enter your address"),
+});
+
+export const validationSchema = z.object({
+  password: z.string().min(6, "Must be at least 6 characters"),
+  patient: patientValidationSchema,
+});
+
+export const defaultValues = {
+  password: "",
+  patient: {
+    name: "",
+    email: "",
+    contactNumber: "",
+    address: "",
+  },
+};
 
 const RegisterPage = () => {
   const router = useRouter();
@@ -86,15 +112,14 @@ const RegisterPage = () => {
             </Box>
           </Stack>
           <Box>
-            <PHForm onSubmit={handleRegister}>
+            <PHForm
+              onSubmit={handleRegister}
+              resolver={zodResolver(validationSchema)}
+              defaultValues={defaultValues}
+            >
               <Grid container spacing={2} my={1}>
                 <Grid item md={12}>
-                  <PHInput
-                    label="Name"
-                    fullWidth={true}
-                    name="patient.name"
-                    required={true}
-                  />
+                  <PHInput label="Name" fullWidth={true} name="patient.name" />
                 </Grid>
                 <Grid item md={6}>
                   <PHInput
@@ -102,7 +127,6 @@ const RegisterPage = () => {
                     type="email"
                     fullWidth={true}
                     name="patient.email"
-                    required={true}
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -111,7 +135,6 @@ const RegisterPage = () => {
                     type="password"
                     fullWidth={true}
                     name="password"
-                    required={true}
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -119,7 +142,6 @@ const RegisterPage = () => {
                     label="Contact Number"
                     type="tel"
                     fullWidth={true}
-                    required={true}
                     name="patient.contactNumber"
                   />
                 </Grid>
@@ -128,7 +150,6 @@ const RegisterPage = () => {
                     label="Address"
                     fullWidth={true}
                     name="patient.address"
-                    required={true}
                   />
                 </Grid>
               </Grid>
