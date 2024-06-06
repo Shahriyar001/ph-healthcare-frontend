@@ -42,7 +42,7 @@ const SideBar = () => {
         }}
         direction="row"
         justifyContent="center"
-        alighItems="center"
+        alignItems="center"
         gap={1}
         component={Link}
         href="/"
