@@ -22,7 +22,14 @@ const Footer = () => {
           <Image src={facebookIcon} width={30} height={30} alt="facebook" />
           <Image src={facebookIcon} width={30} height={30} alt="facebook" />
         </Stack>
-        <div className="border-b-[1px] bg-white  border-dashed"></div>
+        {/* <div className="border-b-[1px] bg-white  border-dashed"></div> */}
+
+        <Box
+          sx={{
+            border: "1px dashed lightgray",
+          }}
+        ></Box>
+
         <Stack
           direction="row"
           justifyContent="space-between"
