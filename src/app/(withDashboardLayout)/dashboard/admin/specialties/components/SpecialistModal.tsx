@@ -2,6 +2,7 @@ import PHFileUploader from "@/componants/Forms/PHFileUploader";
 import PHForm from "@/componants/Forms/PHForm";
 import PHInput from "@/componants/Forms/PHInput";
 import PHModal from "@/componants/Shared/PHModal/PHModal";
+import { modifyPayload } from "@/ulils/modifyPayload";
 import { Button, Grid } from "@mui/material";
 import { FieldValues } from "react-hook-form";
 
@@ -11,7 +12,9 @@ type Tprops = {
 };
 
 const SpecialistModal = ({ open, setOpen }: Tprops) => {
-  const handleFormSubmit = (value: FieldValues) => {};
+  const handleFormSubmit = (values: FieldValues) => {
+    const data = modifyPayload(values);
+  };
 
   return (
     <PHModal open={open} setOpen={setOpen} title="Create A New Specialist">
