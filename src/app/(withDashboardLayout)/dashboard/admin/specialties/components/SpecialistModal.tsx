@@ -14,6 +14,10 @@ type Tprops = {
 const SpecialistModal = ({ open, setOpen }: Tprops) => {
   const handleFormSubmit = (values: FieldValues) => {
     const data = modifyPayload(values);
+    try {
+    } catch (err: any) {
+      console.error(err.message);
+    }
   };
 
   return (
