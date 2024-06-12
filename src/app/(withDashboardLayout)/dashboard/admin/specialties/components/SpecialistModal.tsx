@@ -2,6 +2,7 @@ import PHFileUploader from "@/componants/Forms/PHFileUploader";
 import PHForm from "@/componants/Forms/PHForm";
 import PHInput from "@/componants/Forms/PHInput";
 import PHModal from "@/componants/Shared/PHModal/PHModal";
+import { useCreateSpecialtyMutation } from "@/redux/api/specialitiesApi";
 import { modifyPayload } from "@/ulils/modifyPayload";
 import { Button, Grid } from "@mui/material";
 import { FieldValues } from "react-hook-form";
@@ -12,9 +13,14 @@ type Tprops = {
 };
 
 const SpecialistModal = ({ open, setOpen }: Tprops) => {
-  const handleFormSubmit = (values: FieldValues) => {
+  const [createSpecialty] = useCreateSpecialtyMutation();
+
+  const handleFormSubmit = async (values: FieldValues) => {
+    console.log(values);
     const data = modifyPayload(values);
     try {
+      const res = await createSpecialty(data);
+      console.log(res);
     } catch (err: any) {
       console.error(err.message);
     }

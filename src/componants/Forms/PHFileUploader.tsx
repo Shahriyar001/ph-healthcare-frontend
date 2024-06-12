@@ -30,7 +30,7 @@ export default function PHFileUploader({ name, label, sx }: TProps) {
             {label || "Upload file"}
             <Input
               {...field}
-              type={name}
+              type="file"
               value={value?.fileName}
               onChange={(e) =>
                 onChange((e?.target as HTMLInputElement).files?.[0])
