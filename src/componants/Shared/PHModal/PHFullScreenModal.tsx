@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
-import { SxProps } from "@mui/material";
+import { DialogContent, DialogTitle, SxProps } from "@mui/material";
 import { BootstrapDialog } from "./PHModal";
 
 type TModalProps = {
@@ -58,7 +58,24 @@ export default function PHFullScreenModal({
         open={open}
         sx={{ ...sx }}
         TransitionComponent={Transition}
-      ></BootstrapDialog>
+      >
+        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+          {title}
+        </DialogTitle>
+        <IconButton
+          aria-label="close"
+          onClick={handleClose}
+          sx={{
+            position: "absolute",
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+        <DialogContent dividers>{children}</DialogContent>
+      </BootstrapDialog>
       <Button variant="outlined" onClick={handleClickOpen}>
         Open full-screen dialog
       </Button>
