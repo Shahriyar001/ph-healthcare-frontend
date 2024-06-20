@@ -33,3 +33,5 @@ export type IGenericErrorMessages = {
   path: string | number;
   message: string;
 };
+
+export const Gender = ["Male", "Female"];
