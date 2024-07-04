@@ -1,6 +1,7 @@
 import { Box, Button, Stack, TextField } from "@mui/material";
-import DoctorModal from "./components/DoctorModal";
+// import DoctorModal from "./components/DoctorModal";
 import { useState } from "react";
+import DoctorModal from "./components/DoctorModal";
 
 const DoctorsPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
