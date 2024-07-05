@@ -9,11 +9,17 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 const DoctorsPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const { data, isLoading } = useGetAllDoctorsQuery({});
+  const query: Record<string, any> = {};
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  // console.log(searchTerm);
+
+  query["searchTerm"] = searchTerm;
+
+  const { data, isLoading } = useGetAllDoctorsQuery({ ...query });
   // console.log(data);
   const doctors = data?.doctors;
   const meta = data?.meta;
-  console.log(doctors);
+  // console.log(doctors);
 
   const handleDelete = async (id: string) => {
     try {
@@ -48,7 +54,11 @@ const DoctorsPage = () => {
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Button onClick={() => setIsModalOpen(true)}>Create New Doctor</Button>
         <DoctorModal open={isModalOpen} setOpen={setIsModalOpen} />
-        <TextField size="small" placeholder="search doctor" />
+        <TextField
+          onChange={(e) => setSearchTerm(e.target.value)}
+          size="small"
+          placeholder="search doctor"
+        />
       </Stack>
       {!isLoading ? (
         <Box my={2}>
