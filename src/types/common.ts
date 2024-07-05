@@ -34,4 +34,4 @@ export type IGenericErrorMessages = {
   message: string;
 };
 
-export const Gender = ["Male", "Female"];
+export const Gender = ["MALE", "FEMALE"];
