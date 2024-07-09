@@ -17,7 +17,7 @@ const ScheduleModal = ({ open, setOpen }) => {
       <PHForm onSubmit={handleFromSubmit}>
         <Grid container spacing={2}>
           <Grid item md={12}>
-            <PHDatePicker />
+            <PHDatePicker name="startDate" />
           </Grid>
         </Grid>
         <Button type="submit">Create</Button>

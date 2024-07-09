@@ -2,7 +2,8 @@ import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import { SxProps, useFormControl } from "@mui/material";
+import { SxProps } from "@mui/material";
+import { Controller, useFormContext } from "react-hook-form";
 
 interface IDatePicker {
   name: string;
@@ -21,7 +22,7 @@ const PHDatePicker = ({
   fullWidth = true,
   sx,
 }: IDatePicker) => {
-  const { control } = useFormControl();
+  const { control } = useFormContext();
   return (
     <Controller
       name={name}
@@ -31,8 +32,10 @@ const PHDatePicker = ({
         return (
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DesktopDatePicker
+              timezone="system"
+              disablePast
               {...field}
-              onChange={(date) => onChange(onChange)}
+              onChange={(date) => onChange(date)}
               value={value || Date.now()}
             />
           </LocalizationProvider>
