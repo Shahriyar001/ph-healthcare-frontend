@@ -32,11 +32,23 @@ const PHDatePicker = ({
         return (
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DesktopDatePicker
+              label={label}
               timezone="system"
               disablePast
               {...field}
               onChange={(date) => onChange(date)}
               value={value || Date.now()}
+              slotProps={{
+                textField: {
+                  required: required,
+                  size: size,
+                  sx: {
+                    ...sx,
+                  },
+                  variant: "outlined",
+                  fullWidth: fullWidth,
+                },
+              }}
             />
           </LocalizationProvider>
         );
