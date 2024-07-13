@@ -9,10 +9,19 @@ interface IDatePicker {
   name: string;
   size?: "small" | "medium";
   label?: string;
-  required: boolean;
+  required?: boolean;
   fullWidth?: boolean;
   sx?: SxProps;
 }
+
+// interface IDatePicker {
+//   name: string;
+//   size?: "small" | "medium";
+//   label?: string;
+//   required?: boolean;
+//   fullWidth?: boolean;
+//   sx?: SxProps;
+// }
 
 const PHDatePicker = ({
   name,
