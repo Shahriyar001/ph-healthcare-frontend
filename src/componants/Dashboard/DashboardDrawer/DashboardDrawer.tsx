@@ -11,6 +11,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import SideBar from "@/app/(withDashboardLayout)/dashboard/sideBar/SideBar";
+import { useGetSingleUserQuery } from "@/redux/api/useAPi";
 
 const drawerWidth = 240;
 
@@ -36,6 +37,8 @@ export default function DashboardDrawer({
       setMobileOpen(!mobileOpen);
     }
   };
+
+  const {data, isLoading} = useGetSingleUserQuery({};)
 
   // Remove this const when copying and pasting into your project.
 
@@ -64,7 +67,7 @@ export default function DashboardDrawer({
           </IconButton>
           <Box>
             <Typography variant="body2" noWrap component="div" color="gray">
-              Hi, Shahriyar mahbub
+              Hi, {isLoading ? "Loading" : data?.name}
             </Typography>
             <Typography
               variant="body2"
