@@ -1,6 +1,6 @@
-"use server";
+// "use server";
 
-import { FormValues } from "@/app/login/page";
+// import { FormValues } from "@/app/login/page";
 import { FieldValues } from "react-hook-form";
 
 export const userLogin = async (data: FieldValues) => {
@@ -13,6 +13,7 @@ export const userLogin = async (data: FieldValues) => {
       },
       body: JSON.stringify(data),
       cache: "no-store",
+      credentials: "include",
     }
   );
   const userInfo = await res.json();
