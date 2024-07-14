@@ -1,7 +1,9 @@
 import { authkey } from "@/constants/authKey";
+import { getNewAccessToken } from "@/services/authservices";
 import { IGenericErrorResponse, ResponseSuccessType } from "@/types";
 import { getFromLocalStorage } from "@/ulils/local.storage";
 import axios from "axios";
+import { access } from "fs";
 
 const instance = axios.create();
 instance.defaults.headers.post["Content-Type"] = "application/json";
@@ -40,16 +42,26 @@ instance.interceptors.response.use(
 
     return responseObject;
   },
-  function (error) {
+  async function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    const responseObject: IGenericErrorResponse = {
-      statusCode: error?.response?.data?.statusCode || 500,
-      message: error.response.data.message || "Something went wrong!!!",
-      errorMessages: error?.response?.message,
-    };
+    // console.log(error);
+    const config = error.config;
+    if (error?.response?.status === 500) {
+      const response = await getNewAccessToken();
+      console.log(response);
+      const accessToken = response?.data?.accessToken;
+      config.headers["Authorization"] = accessToken;
+    } else {
+      const responseObject: IGenericErrorResponse = {
+        statusCode: error?.response?.data?.statusCode || 500,
+        message: error.response.data.message || "Something went wrong!!!",
+        errorMessages: error?.response?.message,
+      };
+      return responseObject;
+    }
+
     // return Promise.reject(error);
-    return responseObject;
   }
 );
 
