@@ -47,7 +47,8 @@ instance.interceptors.response.use(
     // Do something with response error
     // console.log(error);
     const config = error.config;
-    if (error?.response?.status === 500) {
+    if (error?.response?.status === 500 && !config.sent) {
+      config.sent = true;
       const response = await getNewAccessToken();
       console.log(response);
       const accessToken = response?.data?.accessToken;
