@@ -3,6 +3,7 @@
 import PHForm from "@/componants/Forms/PHForm";
 import PHInput from "@/componants/Forms/PHInput";
 import PHSelectField from "@/componants/Forms/PHSelectField";
+import { useGetDoctorQuery } from "@/redux/api/doctorApi";
 import { Gender } from "@/types";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import React from "react";
@@ -15,6 +16,11 @@ type TParams = {
 const DoctorUpdatePage = ({ params }: TParams) => {
   // console.log(params?.doctorId);
 
+  const id = params?.doctorId;
+
+  const { data, isLoading } = useGetDoctorQuery(id);
+  console.log(data);
+
   const handleFormSubmit = async (values: FieldValues) => {
     console.log(values);
 
@@ -25,21 +31,18 @@ const DoctorUpdatePage = ({ params }: TParams) => {
   };
 
   const defaultValues = {
-    doctor: {
-      email: "",
-      name: "",
-      contactNumber: "",
-      address: "",
-      registrationNumber: "",
-      gender: "",
-      experience: 0,
-      apointmentFee: 0,
-      qualification: "",
-      currentWorkingPlace: "",
-      designation: "",
-      profilePhoto: "",
-    },
-    password: "",
+    email: "",
+    name: "",
+    contactNumber: "",
+    address: "",
+    registrationNumber: "",
+    gender: "",
+    experience: 0,
+    apointmentFee: 0,
+    qualification: "",
+    currentWorkingPlace: "",
+    designation: "",
+    profilePhoto: "",
   };
   return (
     <Box>
@@ -49,16 +52,11 @@ const DoctorUpdatePage = ({ params }: TParams) => {
       <PHForm onSubmit={handleFormSubmit} defaultValues={defaultValues}>
         <Grid container spacing={2} sx={{ my: 5 }}>
           <Grid item xs={12} sm={12} md={4}>
-            <PHInput
-              name="doctor.name"
-              label="Name"
-              fullWidth={true}
-              sx={{ mb: 2 }}
-            />
+            <PHInput name="name" label="Name" fullWidth={true} sx={{ mb: 2 }} />
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
             <PHInput
-              name="doctor.email"
+              name="email"
               type="email"
               label="Email"
               fullWidth={true}
@@ -68,7 +66,7 @@ const DoctorUpdatePage = ({ params }: TParams) => {
 
           <Grid item xs={12} sm={12} md={4}>
             <PHInput
-              name="doctor.contactNumber"
+              name="contactNumber"
               label="Contract Number"
               fullWidth={true}
               sx={{ mb: 2 }}
@@ -76,7 +74,7 @@ const DoctorUpdatePage = ({ params }: TParams) => {
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
             <PHInput
-              name="doctor.address"
+              name="address"
               label="Address"
               fullWidth={true}
               sx={{ mb: 2 }}
@@ -84,7 +82,7 @@ const DoctorUpdatePage = ({ params }: TParams) => {
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
             <PHInput
-              name="doctor.registrationNumber"
+              name="registrationNumber"
               label="Registration Number"
               fullWidth={true}
               sx={{ mb: 2 }}
@@ -92,7 +90,7 @@ const DoctorUpdatePage = ({ params }: TParams) => {
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
             <PHInput
-              name="doctor.experience"
+              name="experience"
               type="number"
               label="Experience"
               fullWidth={true}
@@ -102,14 +100,14 @@ const DoctorUpdatePage = ({ params }: TParams) => {
           <Grid item xs={12} sm={12} md={4}>
             <PHSelectField
               items={Gender}
-              name="doctor.gender"
+              name="gender"
               label="Gender"
               sx={{ mb: 2 }}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
             <PHInput
-              name="doctor.apointmentFee"
+              name="apointmentFee"
               type="number"
               label="ApointmentFee"
               fullWidth={true}
@@ -118,7 +116,7 @@ const DoctorUpdatePage = ({ params }: TParams) => {
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
             <PHInput
-              name="doctor.qualification"
+              name="qualification"
               label="Qualification"
               fullWidth={true}
               sx={{ mb: 2 }}
@@ -127,7 +125,7 @@ const DoctorUpdatePage = ({ params }: TParams) => {
 
           <Grid item xs={12} sm={12} md={4}>
             <PHInput
-              name="doctor.currentWorkingPlace"
+              name="currentWorkingPlace"
               label="Current Working Place"
               fullWidth={true}
               sx={{ mb: 2 }}
@@ -135,7 +133,7 @@ const DoctorUpdatePage = ({ params }: TParams) => {
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
             <PHInput
-              name="doctor.designation"
+              name="designation"
               label="Designation"
               fullWidth={true}
               sx={{ mb: 2 }}
