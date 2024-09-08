@@ -31,18 +31,17 @@ const DoctorUpdatePage = ({ params }: TParams) => {
   };
 
   const defaultValues = {
-    email: "",
-    name: "",
-    contactNumber: "",
-    address: "",
-    registrationNumber: "",
-    gender: "",
-    experience: 0,
-    apointmentFee: 0,
-    qualification: "",
-    currentWorkingPlace: "",
-    designation: "",
-    profilePhoto: "",
+    email: data?.email || "",
+    name: data?.name || "",
+    contactNumber: data?.contactNumber || "",
+    address: data?.address || "",
+    registrationNumber: data?.registrationNumber || "",
+    gender: data?.gender || "",
+    experience: data?.experience || 0,
+    apointmentFee: data?.apointmentFee || 0,
+    qualification: data?.qualification || "",
+    currentWorkingPlace: data?.currentWorkingPlace || "",
+    designation: data?.designation || "",
   };
   return (
     <Box>
