@@ -32,6 +32,8 @@ import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { useGetAllSchedulesQuery } from "@/redux/api/scheduleApi";
+import MultipleSelectFieldChip from "./MultipleSelectFieldChip";
 
 type DoctorScheduleModalProps = {
   open: boolean;
@@ -45,7 +47,28 @@ const DoctorScheduleModal: React.FC<DoctorScheduleModalProps> = ({
   const [selectedDate, setSeclectedDate] = useState(
     dayjs(new Date()).toISOString()
   );
-  console.log(selectedDate);
+
+  const [selectedScheduleIds, setSelectedScheduleIds] = useState();
+
+  const query: Record<string, any> = {};
+
+  if (!!selectedDate) {
+    query["startDate"] = dayjs(selectedDate)
+      .hour(0)
+      .minute(0)
+      .millisecond(0)
+      .toISOString();
+    query["endDate"] = dayjs(selectedDate)
+      .hour(23)
+      .minute(59)
+      .millisecond(999)
+      .toISOString();
+  }
+
+  const { data, isLoading } = useGetAllSchedulesQuery(query);
+  const schedules = data?.schedules;
+  console.log(schedules);
+
   return (
     <PHModal open={open} setOpen={setOpen} title="Create Doctor Schedule">
       <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -57,6 +80,7 @@ const DoctorScheduleModal: React.FC<DoctorScheduleModalProps> = ({
           }
         />
       </LocalizationProvider>
+      <MultipleSelectFieldChip schedules={schedules} />
     </PHModal>
   );
 };
