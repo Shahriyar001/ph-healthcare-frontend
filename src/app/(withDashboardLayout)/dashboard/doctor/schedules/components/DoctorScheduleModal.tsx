@@ -35,6 +35,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useGetAllSchedulesQuery } from "@/redux/api/scheduleApi";
 import MultipleSelectFieldChip from "./MultipleSelectFieldChip";
 import { Stack } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 type DoctorScheduleModalProps = {
   open: boolean;
@@ -71,6 +72,8 @@ const DoctorScheduleModal: React.FC<DoctorScheduleModalProps> = ({
   const schedules = data?.schedules;
   console.log(schedules);
 
+  const onSubmit = () => {};
+
   return (
     <PHModal open={open} setOpen={setOpen} title="Create Doctor Schedule">
       <Stack direction={"column"} gap={2}>
@@ -89,6 +92,16 @@ const DoctorScheduleModal: React.FC<DoctorScheduleModalProps> = ({
           selectedScheduleIds={selectedScheduleIds}
           setSelectedScheduleIds={setSelectedScheduleIds}
         />
+
+        <LoadingButton
+          size="small"
+          onClick={onSubmit}
+          loading={false}
+          loadingIndicator="Submitting"
+          variant="outlined"
+        >
+          Fetch data
+        </LoadingButton>
       </Stack>
     </PHModal>
   );
