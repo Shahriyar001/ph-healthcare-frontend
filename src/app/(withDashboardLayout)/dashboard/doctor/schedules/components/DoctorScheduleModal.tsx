@@ -34,6 +34,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useGetAllSchedulesQuery } from "@/redux/api/scheduleApi";
 import MultipleSelectFieldChip from "./MultipleSelectFieldChip";
+import { Stack } from "@mui/material";
 
 type DoctorScheduleModalProps = {
   open: boolean;
@@ -49,6 +50,7 @@ const DoctorScheduleModal: React.FC<DoctorScheduleModalProps> = ({
   );
 
   const [selectedScheduleIds, setSelectedScheduleIds] = useState();
+  console.log(selectedScheduleIds);
 
   const query: Record<string, any> = {};
 
@@ -71,16 +73,23 @@ const DoctorScheduleModal: React.FC<DoctorScheduleModalProps> = ({
 
   return (
     <PHModal open={open} setOpen={setOpen} title="Create Doctor Schedule">
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DatePicker
-          label="Controlled picker"
-          value={dayjs(selectedDate)}
-          onChange={(newValue) =>
-            setSeclectedDate(dayjs(newValue).toISOString())
-          }
+      <Stack direction={"column"} gap={2}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            label="Controlled picker"
+            value={dayjs(selectedDate)}
+            onChange={(newValue) =>
+              setSeclectedDate(dayjs(newValue).toISOString())
+            }
+            sx={{ width: "100%" }}
+          />
+        </LocalizationProvider>
+        <MultipleSelectFieldChip
+          schedules={schedules}
+          selectedScheduleIds={selectedScheduleIds}
+          setSelectedScheduleIds={setSelectedScheduleIds}
         />
-      </LocalizationProvider>
-      <MultipleSelectFieldChip schedules={schedules} />
+      </Stack>
     </PHModal>
   );
 };
