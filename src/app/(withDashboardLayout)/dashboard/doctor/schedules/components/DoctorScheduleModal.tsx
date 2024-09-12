@@ -35,7 +35,10 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useGetAllSchedulesQuery } from "@/redux/api/scheduleApi";
 import MultipleSelectFieldChip from "./MultipleSelectFieldChip";
 import { Stack } from "@mui/material";
+// import LoadingButton from "@mui/lab/LoadingButton";
+// import LoadingButton from "@mui/material/LoadingButton";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { useCreateDoctorScheduleMutation } from "@/redux/api/doctorScheduleApi";
 
 type DoctorScheduleModalProps = {
   open: boolean;
@@ -68,11 +71,23 @@ const DoctorScheduleModal: React.FC<DoctorScheduleModalProps> = ({
       .toISOString();
   }
 
-  const { data, isLoading } = useGetAllSchedulesQuery(query);
+  const { data } = useGetAllSchedulesQuery(query);
   const schedules = data?.schedules;
+  const [createDoctorSchedule, { isLoading }] =
+    useCreateDoctorScheduleMutation();
   console.log(schedules);
 
-  const onSubmit = () => {};
+  const onSubmit = async () => {
+    const res = await createDoctorSchedule({
+      scheduleIds: selectedScheduleIds,
+    });
+    console.log(res);
+    setOpen(false);
+    try {
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <PHModal open={open} setOpen={setOpen} title="Create Doctor Schedule">
@@ -96,9 +111,9 @@ const DoctorScheduleModal: React.FC<DoctorScheduleModalProps> = ({
         <LoadingButton
           size="small"
           onClick={onSubmit}
-          loading={false}
+          loading={isLoading}
           loadingIndicator="Submitting"
-          variant="outlined"
+          variant="contained"
         >
           Fetch data
         </LoadingButton>

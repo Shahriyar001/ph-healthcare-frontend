@@ -1,11 +1,25 @@
+// export type ISchedule = {
+//   id?: string;
+//   startDate: string;
+//   endDate: string;
+// };
+
+// export type IScheduleForm = {
+//   StartDate: Date;
+//   endDate: Date;
+//   startTime: string;
+//   endTime: string;
+// };
+
 export type ISchedule = {
+  [x: string]: any;
   id?: string;
   startDate: string;
   endDate: string;
 };
 
-export type IScheduleForm = {
-  StartDate: Date;
+export type IScheduleFrom = {
+  startDate: Date;
   endDate: Date;
   startTime: string;
   endTime: string;
